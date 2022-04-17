@@ -1,0 +1,19 @@
+// Abstract syntax
+// See section 2.1 in the paper
+// Reference manual: http://jastadd.org/
+
+
+JsonProgram ::= Json ;
+abstract Value;
+abstract Json : Value;
+
+JObject : Json ::= Pair* ;
+Pair ::= <Name:String> Value ;
+
+JArray  : Json ::= Value* ;
+
+JString  : Value ::= <Val:String> ;
+JNumber  : Value ::= <Val:double> ;
+JBoolean : Value ::= <Val:boolean> ;
+JNull    : Value ;
+

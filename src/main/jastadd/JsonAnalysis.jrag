@@ -1,0 +1,34 @@
+// Collection attributes. See section 4.2 in the paper
+// Reference manual: http://jastadd.org/
+
+import java.util.*;
+aspect JsonAnalysis
+{
+  syn int JsonProgram.numStringValues() =
+  	getJson().numStringValues();
+
+  syn int Json.numStringValues();
+  
+  eq JObject.numStringValues() {
+  	int total = 0;
+  	for(Pair p : getPairList()) {
+  		total += p.numStringValues();
+  	}
+  	return total;
+  }
+  
+  syn int Pair.numStringValues() =
+  	getValue().numStringValues();
+  
+  eq JArray.numStringValues() {
+  	int total = 0 ;
+  	for(Value v : getValueList()) {
+  		total += v.numStringValues();
+  	}
+  	return total;
+  }
+  
+  syn int Value.numStringValues() = 0;
+  
+  eq JString.numStringValues() = 1 ;
+}
